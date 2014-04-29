@@ -16,3 +16,12 @@ I've hacked together a proto board from the above diagrams, I'll add the schemat
 Current implementation proto system reports as KOHCINCI77:
 
 http://www.wunderground.com/personal-weather-station/dashboard?ID=KOHCINCI77#current
+
+TODO
+====
+
+Hardware for anemometer, solar/uv sensors and rain guage.  
+
+I'll need to re-do the board to get all of the new sensors added.  
+
+I might go arduino as a usb or serial device for the solar/rain/anemometer.
