@@ -25,3 +25,9 @@ Hardware for anemometer, solar/uv sensors and rain guage.
 I'll need to re-do the board to get all of the new sensors added.  
 
 I might go arduino as a usb or serial device for the solar/rain/anemometer.
+
+Use XS to create a perl module to do the sensor access to remove the command line dependencies.
+
+Make the reporting cam and rapid-fire code configurable
+
+Chameleon5 builtin site for xml->xsl serving of data via http on-demand
