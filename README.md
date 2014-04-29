@@ -12,3 +12,7 @@ https://learn.adafruit.com/using-the-bmp085-with-raspberry-pi/overview
 https://learn.adafruit.com/dht-humidity-sensing-on-raspberry-pi-with-gdocs-logging/software-install
 
 I've hacked together a proto board from the above diagrams, I'll add the schematic soonish
+
+Current implementation proto system reports as KOHCINCI77:
+
+http://www.wunderground.com/personal-weather-station/dashboard?ID=KOHCINCI77#current
