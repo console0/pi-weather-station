@@ -17,14 +17,14 @@ Current implementation proto system reports as KOHCINCI77:
 
 http://www.wunderground.com/personal-weather-station/dashboard?ID=KOHCINCI77#current
 
+Hardware for anemometer, wind vane and rain guage is now done.
+
+I added an arduino as a usb serial device for the rain/anemometer.
+
 TODO
 ====
 
-Hardware for anemometer, solar/uv sensors and rain guage.  
-
-I'll need to re-do the board to get all of the new sensors added.  
-
-I might go arduino as a usb or serial device for the solar/rain/anemometer.
+Hardware for solar/uv sensors.  
 
 Use XS to create a perl module to do the sensor access to remove the command line dependencies.
 
