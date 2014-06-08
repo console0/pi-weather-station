@@ -113,7 +113,7 @@ my $cached = 0;
         my $sensorz = `cat $sensor_file`;
         $sensorz =~ s/[\r\n]//g;
         my ($dir_deg,$ws_mph,$gusts,$cur_precip_rate) = split(/:/,$sensorz);
-	# apparently i cant report precip rate as in/hr
+	# apparently i cant report precip rate as in/hr, well "rainin" looks like a rate... we'll try it
 	# i can do day to now total
 	my $ldt = DateTime->now;
 	$ldt->set_time_zone('America/New_York');
@@ -140,6 +140,7 @@ my $cached = 0;
 		      url_encode($temp_f) . "&baromin=" .  url_encode($slp) . "&dewptf=" .  url_encode($dptf) . 
 "&winddir=" .  url_encode($dir_deg) . "&windspeedmph=" .  url_encode($ws_mph) .  "&windgustmph=" .  url_encode($gusts) .
 "&dailyrainin=" .  url_encode($rain_today_in) .
+"&rainin=" .  url_encode($cur_precip_rate) .
 "&humidity=" .  url_encode($dht_hum) . "&softwaretype=" .  url_encode("pi-weather-station") . "&action=updateraw&realtime=1&rtfreq=60";
 	print $urlstr . "\n";
 	my $rs = $ua->get($urlstr);

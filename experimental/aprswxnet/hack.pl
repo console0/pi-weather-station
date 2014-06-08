@@ -7,6 +7,7 @@ use strict;
 use IO::Socket;
 
 my $data = {};
+my $test = shift;
 
 my $sensor_file = '/home/pi/serial_logs/current.wind';
 my $tries_left = 2; # 2 tries only
@@ -136,12 +137,18 @@ CW0003>APRS,TCPIP*:/241505z4220.45N/07128.59W_032/005g008t054r001p078P048h50b102
                't' . sprintf("%03d",$temp_f) . 
 # last hour               'r' . sprintf("%03s",$ws_mph) . 
 # last 24              'p' . sprintf("%03s",$ws_mph) . 
-               'P' . sprintf("%03d",$rain_today_in * .01) . 
+               'P' . sprintf("%03d",$rain_today_in * 100) . 
                'h' . sprintf("%02d",$dht_hum) . 
                'b' . sprintf("%05d",$slp * 10) . 
                'pi-weather-station-perl';
 
 	print $data . "\n";
+
+    if ($test)
+    {
+        print "test mode....exiting\n";
+        last(SENSOR);
+    }
 
     my $s = IO::Socket::INET->new( PeerAddr => 'cwop.aprs.net',
                                PeerPort => 14580,
