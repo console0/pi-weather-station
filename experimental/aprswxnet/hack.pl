@@ -70,9 +70,9 @@ SENSOR: while ($tries_left)
 	my $dht_temp = $dht_split[2];
 	my $dht_hum = $dht_split[6];
 
-    if ($dht_hum > 99)
+    if ($dht_hum >= 100)
     {
-        $dht_hum = 99;
+        $dht_hum = 00;
     }
          
 	print "DHT SENSOR: $dht_temp C / $dht_hum %\n";
@@ -142,7 +142,18 @@ CW0003>APRS,TCPIP*:/241505z4220.45N/07128.59W_032/005g008t054r001p078P048h50b102
                'b' . sprintf("%05d",$slp * 10) . 
                'pi-weather-station-perl';
 
-	print $data . "\n";
+    open(LOG,">> /home/pi/serial_logs/" . $ldt->ymd . ".log");
+	print LOG "CWOP|" . $data . "\n";
+    close(LOG);
+
+    if ($temp_f > 99)
+    {
+        open(LOG,">> /home/pi/serial_logs/" . $ldt->ymd . ".log");
+        print LOG "CWOP discarding reading";
+        close(LOG);
+        exit;
+        last(SENSOR);
+    }
 
     if ($test)
     {

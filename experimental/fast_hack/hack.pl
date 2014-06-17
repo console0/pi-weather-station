@@ -136,6 +136,19 @@ my $cached = 0;
 	$bmp_hpa ** ((250)/(29.3 * $bmp_temp)); # sea level conversion
 	my $dptf = $temp_f - ((9/25) * (100-$dht_hum)); # dewpoint F
 
+    open(LOG,">> /home/pi/serial_logs/" . $ldt->ymd . ".log");
+    print LOG "$ldt|tempf:$temp_f|baromin:$slp|dewptf:$dptf|winddir:$dir_deg|windspeedmph:$ws_mph|windgustmph:$gusts|dailyrainin:$rain_today_in|rainin:$cur_precip_rate|humidity:$dht_hum\n";
+    close(LOG);
+
+    if ($temp_f > 99)
+    {
+        open(LOG,">> /home/pi/serial_logs/" . $ldt->ymd . ".log");
+        print LOG "discarding reading";
+        close(LOG);
+        exit;
+        last(SENSOR);
+    }
+
 	my $urlstr = "http://rtupdate.wunderground.com/weatherstation/updateweatherstation.php?ID=KOHCINCI77&PASSWORD=$pass&dateutc=$date&tempf=" . 
 		      url_encode($temp_f) . "&baromin=" .  url_encode($slp) . "&dewptf=" .  url_encode($dptf) . 
 "&winddir=" .  url_encode($dir_deg) . "&windspeedmph=" .  url_encode($ws_mph) .  "&windgustmph=" .  url_encode($gusts) .
