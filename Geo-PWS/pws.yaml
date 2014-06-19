@@ -1,0 +1,9 @@
+---
+pws:
+  stations:
+    EW5253:
+      altitude_meters: 239.4
+      latitude_decimal: 39.248
+      longitude_decimal: -84.678
+      name: CWOP EW5253 / Weather Underground PWS KOHCINCI77
+      storage_engine: File

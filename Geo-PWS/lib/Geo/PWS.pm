@@ -2,83 +2,65 @@ package Geo::PWS;
 
 use 5.010000;
 use strict;
-use warnings;
+use warnings FATAL => 'all', NONFATAL => 'uninitialized';
+use YAML qw( LoadFile Dump );
+use Data::Dumper;
 
-require Exporter;
+use Geo::PWS::Station;
 
-our @ISA = qw(Exporter);
+sub new
+{
+    my ($class, %args) = @_;
+    my $self = {};
+    bless $self, $class;
+    
+    while (my ($k,$v) = each(%args))
+    {
+        if ($self->can($k))
+        {
+            $self->$k($v);
+        }
+    }
 
-# Items to export into callers namespace by default. Note: do not export
-# names by default without a very good reason. Use EXPORT_OK instead.
-# Do not simply export all your public functions/methods/constants.
+    my $config_file = $self->config();
+    if (!$config_file)
+    {
+        die("config file not specified");
+    }
 
-# This allows declaration	use Geo::PWS ':all';
-# If you do not need this, moving things directly into @EXPORT or @EXPORT_OK
-# will save memory.
-our %EXPORT_TAGS = ( 'all' => [ qw(
-	
-) ] );
+    if (-f $config_file)
+    {
+        my $conf = LoadFile($config_file);
+        $self->loaded_conf($conf);
+    }
+    else
+    {
+        die("config file was empty");
+    }
 
-our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
+    return $self;
+}
 
-our @EXPORT = qw(
-	
-);
+sub station
+{
+    my ($self, $station) = @_;
+    my $station_ob = Geo::PWS::Station->new( config => $self->loaded_conf->{pws}->{stations}->{$station} );
+    return $station_ob;
+}
 
-our $VERSION = '0.01';
+
+# quick/dirty accessor splat
+sub config { my ($self, $val) = @_; $self->{_config} = $val if defined $val; return $self->{_config}; }
+sub loaded_conf { my ($self, $val) = @_; $self->{_loaded_config} = $val if defined $val; return $self->{_loaded_config}; }
 
 
-# Preloaded methods go here.
+
+
+
+
+
+
+
+
 
 1;
-__END__
-# Below is stub documentation for your module. You'd better edit it!
-
-=head1 NAME
-
-Geo::PWS - Perl extension for blah blah blah
-
-=head1 SYNOPSIS
-
-  use Geo::PWS;
-  blah blah blah
-
-=head1 DESCRIPTION
-
-Stub documentation for Geo::PWS, created by h2xs. It looks like the
-author of the extension was negligent enough to leave the stub
-unedited.
-
-Blah blah blah.
-
-=head2 EXPORT
-
-None by default.
-
-
-
-=head1 SEE ALSO
-
-Mention other useful documentation such as the documentation of
-related modules or operating system documentation (such as man pages
-in UNIX), or any relevant external documentation such as RFCs or
-standards.
-
-If you have a mailing list set up for your module, mention it here.
-
-If you have a web site set up for your module, mention it here.
-
-=head1 AUTHOR
-
-Marcus Slagle, E<lt>mslagle@whapps.comE<gt>
-
-=head1 COPYRIGHT AND LICENSE
-
-Copyright (C) 2014 by Marcus Slagle
-
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself, either Perl version 5.16.0 or,
-at your option, any later version of Perl 5 you may have available.
-
-
-=cut
