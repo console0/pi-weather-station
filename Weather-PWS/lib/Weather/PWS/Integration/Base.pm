@@ -1,4 +1,4 @@
-package Geo::PWS::Integration::Base;
+package Weather::PWS::Integration::Base;
 
 use strict;
 use warnings FATAL => 'all', NONFATAL => 'uninitialized';

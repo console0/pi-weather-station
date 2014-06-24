@@ -1,0 +1,15 @@
+Changes
+example.pl
+lib/Weather/PWS.pm
+lib/Weather/PWS/Configuration.pm
+lib/Weather/PWS/Integration/Base.pm
+lib/Weather/PWS/Integration/CWOP.pm
+lib/Weather/PWS/Integration/WeatherUnderground.pm
+lib/Weather/PWS/Station.pm
+lib/Weather/PWS/Storage/Base.pm
+lib/Weather/PWS/Storage/DBI.pm
+lib/Weather/PWS/Storage/File.pm
+Makefile.PL
+MANIFEST
+README
+t/Weather-PWS.t

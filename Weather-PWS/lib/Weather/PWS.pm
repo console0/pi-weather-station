@@ -1,4 +1,4 @@
-package Geo::PWS;
+package Weather::PWS;
 
 use 5.010000;
 use strict;
@@ -6,7 +6,7 @@ use warnings FATAL => 'all', NONFATAL => 'uninitialized';
 use YAML qw( LoadFile Dump );
 use Data::Dumper;
 
-use Geo::PWS::Station;
+use Weather::PWS::Station;
 
 sub new
 {
@@ -44,7 +44,7 @@ sub new
 sub station
 {
     my ($self, $station) = @_;
-    my $station_ob = Geo::PWS::Station->new( config => $self->loaded_conf->{pws}->{stations}->{$station} );
+    my $station_ob = Weather::PWS::Station->new( config => $self->loaded_conf->{pws}->{stations}->{$station} );
     return $station_ob;
 }
 

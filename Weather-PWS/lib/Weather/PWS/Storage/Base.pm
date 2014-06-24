@@ -1,4 +1,4 @@
-package Geo::PWS::Configuration;
+package Weather::PWS::Storage::Base;
 
 use strict;
 use warnings FATAL => 'all', NONFATAL => 'uninitialized';

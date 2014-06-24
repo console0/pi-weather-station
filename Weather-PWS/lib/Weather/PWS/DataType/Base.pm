@@ -1,4 +1,4 @@
-package Geo::PWS::Storage::Base;
+package Weather::PWS::DataType::Base;
 
 use strict;
 use warnings FATAL => 'all', NONFATAL => 'uninitialized';
@@ -9,7 +9,7 @@ sub new
     my $self = {};
     bless $self, $class;
     
-    while (my ($k,$V) = each(%args))
+    while (my ($k,$v) = each(%args))
     {
         if ($self->can($k))
         {
