@@ -17,6 +17,15 @@ print "Deg/Min Coordinates     : " . $station->location->coordinates_degrees_min
 print "Deg/Min/Sec Coordinates : " . $station->location->coordinates_degrees_minutes_seconds . "\n";
 print "APRSWXNET Coordinates   : " . $station->location->coordinates_aprswxnet . "\n";
 print "Altitude                : " . $station->location->altitude_meters . " Meters / ". $station->location->altitude_feet . " Feet\n\n";
+print "Storage Engine          : " . ref($station->storage) . "\n";
+print "Storage Path            : " . $station->storage->path . "\n\n";
+
+print "Station Sensors Enabled\n";
+foreach my $sensor (@{$station->sensors})
+{
+    print "$sensor (" . $station->sensor_info($sensor) . ")\n";
+}
+print "\n";
 
 # adding data
 # multi sensors

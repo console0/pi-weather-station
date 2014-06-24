@@ -9,7 +9,7 @@ sub new
     my $self = {};
     bless $self, $class;
     
-    while (my ($k,$V) = each(%args))
+    while (my ($k,$v) = each(%args))
     {
         if ($self->can($k))
         {
@@ -20,6 +20,15 @@ sub new
     return $self;
 }
 
+sub config
+{
+    my ($self, $conf) = @_;
+    if (defined($conf))
+    {
+        $self->{_config} = $conf;
+    }
+    return $self->{_config};
+}
 
 
 

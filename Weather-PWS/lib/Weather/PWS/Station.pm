@@ -38,6 +38,15 @@ sub new
                                     decimal_longitude => $self->config->{longitude_decimal},
                                     altitude_meters => $self->config->{altitude_meters},
                          );
+    # ok, we also need to fire up the "storage engine"
+    my $storage_class = 'Weather::PWS::Storage::' . $self->config->{storage}->{engine};
+    eval "require $storage_class; 1;";
+    if ($@)
+    {
+        warn $@;
+        die("Could not require() in the storage class requested");
+    }
+    $self->{_storage} = $storage_class->new( config => $self->config->{storage} );
 
     return $self;
 }
@@ -58,8 +67,33 @@ sub location
     return $self->{_location};
 }
 
+sub storage
+{
+    my $self = shift;
+    return $self->{_storage};
+}
 
+# Will probably add more as i go
+my @possible_sensors = qw( pressure humidity temperature anemometer wind_vane rain_gauge solar radiation );
+                           
+sub sensors
+{
+    my ($self) = shift;
+    my @enabled;
+    foreach my $sensor (@possible_sensors)
+    {
+        if (exists $self->config->{sensors}->{$sensor})
+        {
+            push(@enabled,$sensor);
+        }
+    }
+    return \@enabled;
+}
 
-
+sub sensor_info
+{
+    my ($self,$sensor) = @_;
+    return $self->config->{sensors}->{$sensor};
+}
 
 1;

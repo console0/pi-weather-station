@@ -6,4 +6,13 @@ pws:
       latitude_decimal: 39.248
       longitude_decimal: -84.678
       name: CWOP EW5253 / Weather Underground PWS KOHCINCI77
-      storage_engine: File
+      storage:
+        engine: File
+        path: /Users/mslagle/pwsdata
+      sensors:
+        pressure: BMP100/Raspberry Pi
+        humidity: DHT22/Raspberry Pi
+        temperature: BMP100/DHT22/Raspberry Pi
+        anemometer: SEN-08942/Arduino
+        wind_vane: SEN-08942/Arduino
+        rain_gauge: SEN-08942/Arduino
